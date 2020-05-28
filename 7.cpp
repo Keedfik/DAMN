@@ -42,10 +42,10 @@ int main() {
             a[i] = new int[cols];
         }
         
-        for (int i = 0; i < rows; i++) { //Строка
-            for (int k = 0; k < cols; k++) { //Столбец
-                inp >> a[i][k]; //если в конце строки нет запятой, то и читать её не будем
-                if (k != cols - 1) inp >> ch;    //char ch - переменная для чтения запятой
+        for (int i = 0; i < rows; i++) { //Г‘ГІГ°Г®ГЄГ 
+            for (int k = 0; k < cols; k++) { //Г‘ГІГ®Г«ГЎГҐГ¶
+                inp >> a[i][k]; //ГҐГ±Г«ГЁ Гў ГЄГ®Г­Г¶ГҐ Г±ГІГ°Г®ГЄГЁ Г­ГҐГІ Г§Г ГЇГїГІГ®Г©, ГІГ® ГЁ Г·ГЁГІГ ГІГј ГҐВё Г­ГҐ ГЎГіГ¤ГҐГ¬
+                if (k != cols - 1) inp >> ch;    //char ch - ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї Г¤Г«Гї Г·ГІГҐГ­ГЁГї Г§Г ГЇГїГІГ®Г©
                 mean += a[i][k];
                 if (a[i][k] > max) max = a[i][k];
                 if (a[i][k] < min) min = a[i][k];
@@ -70,8 +70,8 @@ int main() {
         }
 
         int temp;
-        //в строках упорядочиваем
-        for (int c = 0; c <= (rows * cols); c++){//колличество проходов
+        //Гў Г±ГІГ°Г®ГЄГ Гµ ГіГЇГ®Г°ГїГ¤Г®Г·ГЁГўГ ГҐГ¬
+        for (int c = 0; c <= (rows * cols); c++){//ГЄГ®Г«Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ°Г®ГµГ®Г¤Г®Гў
             for (int i = 0; i < rows; i++){
                 for (int j = 0; j < cols - 1; j++){
                     if (b[i][j] > b[i][j + 1]){
@@ -87,8 +87,8 @@ int main() {
         outp << "Min = " << min << std::endl;
         outp << "Mean = " << mean << std::endl;
 
-        for (int i = 0; i < rows; i++) { //Строка
-            for (int k = 0; k < cols; k++) { //Столбец
+        for (int i = 0; i < rows; i++) { //Г‘ГІГ°Г®ГЄГ 
+            for (int k = 0; k < cols; k++) { //Г‘ГІГ®Г«ГЎГҐГ¶
                 outp << b[i][k] << " ";
             }
             outp << endl;
@@ -107,7 +107,7 @@ int main() {
             }
         }
 
-        // Сортировка столбцов по убыванию
+        // Г‘Г®Г°ГІГЁГ°Г®ГўГЄГ  Г±ГІГ®Г«ГЎГ¶Г®Гў ГЇГ® ГіГЎГ»ГўГ Г­ГЁГѕ
         int MinRow;
         for (int NumCol = 0; NumCol < cols; NumCol++) {
             for (int NumRow = 0; NumRow < rows - 1; NumRow++) {
@@ -125,8 +125,8 @@ int main() {
         otp << "Min = " << min << std::endl;
         otp << "Mean = " << mean << std::endl;
 
-        for (int i = 0; i < rows; i++) { //Строка
-            for (int k = 0; k < cols; k++) { //Столбец
+        for (int i = 0; i < rows; i++) { //Г‘ГІГ°Г®ГЄГ 
+            for (int k = 0; k < cols; k++) { //Г‘ГІГ®Г«ГЎГҐГ¶
                 otp << c[i][k] << " ";
             }
             otp << endl;
