@@ -34,7 +34,7 @@ ostream& fprint_row(const vector<double>& v, int row, int col, ofstream& f) {
 ostream& fprint_col(const vector<double>& v, int row, int col, ofstream& f) {
     for (int i = 0; i < row; ++i) {
         for (int j = 0; j < col; ++j) {
-            f << v[i+j*col] << " ";
+            f << v[i + j * col] << " ";
         }
         f << endl;
     }
@@ -44,7 +44,7 @@ ostream& fprint_col(const vector<double>& v, int row, int col, ofstream& f) {
 double summa(const vector<double>& v) {
     double sum = 0;
     for (int i = 0; i < v.size(); ++i) {
-         sum += v[i];
+        sum += v[i];
     }
     return sum;
 }
@@ -80,19 +80,19 @@ int main() {
 
         vector<double> a(vec_size);
 
-        for (size_t i = 0; i < vec_size-1; i++) {
+        for (size_t i = 0; i < vec_size - 1; i++) {
             inp >> a[i];
             inp.ignore(1, ',');
         }
         inp >> a[vec_size - 1];
 
         print(a);
-        cout << endl; 
+        cout << endl;
         printMatrix(a, rows, cols);
         cout << endl;
         inp.close();
 
-//---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
         auto max = max_element(a.begin(), a.end());
 
@@ -100,25 +100,22 @@ int main() {
 
         mean = summa(a) / (vec_size);
 
-//---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
         vector <double> b(a);
 
         outp << "max= " << *max << '\n';
         outp << "min= " << *min << '\n';
         outp << "mean= " << mean << '\n';
-        
-        int damn = 0;
 
-        while(damn <= b.size()-rows ) {
-            sort(begin(b)+damn, begin(b) + rows + damn, comp1);
-            damn += rows;
+        for (int i = 0; i <= b.size()-rows; i += rows) {
+            sort(begin(b) + i, begin(b) + rows + i, comp1);
         }
 
         fprint_row(b, rows, cols, outp);
         outp.close();
 
-//---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
         vector <double> c;
 
@@ -131,20 +128,18 @@ int main() {
 
         for (int i = 0; i < rows; i++) {
             for (int k = 0; k < cols; k++) {
-                trash = a.at(i+k*cols);
+                trash = a.at(i + k * cols);
                 yeet.push_back(trash);
             }
-            //print(yeet);
             sort(yeet.begin(), yeet.end(), comp2);
             c.insert(c.end(), yeet.begin(), yeet.end());
             yeet.clear();
         }
 
-        //print(c);
         fprint_col(c, rows, cols, otp);
         otp.close();
 
-//---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
         a.clear();
         b.clear();
         c.clear();
