@@ -102,8 +102,7 @@ int main() {
 
 //---------------------------------------------------------------------------
 
-        vector <double> b;
-        b.assign(a.begin(), a.end());
+        vector <double> b(a);
 
         outp << "max= " << *max << '\n';
         outp << "min= " << *min << '\n';
