@@ -5,14 +5,14 @@
 
 using namespace std;
 
-void print(const vector<int>& a) {
+void print(const vector<double>& a) {
     for (auto i : a) {
         cout << i << " ";
     }
     cout << endl;
 }
 
-void printMatrix(const vector<int>& v, int row, int col) {
+void printMatrix(const vector<double>& v, int row, int col) {
     for (int i = 0; i < row; ++i) {
         for (int j = 0; j < col; ++j) {
             cout << v[i * col + j] << " ";
@@ -21,7 +21,7 @@ void printMatrix(const vector<int>& v, int row, int col) {
     }
 }
 
-ostream& fprint_row(const vector<int>& v, int row, int col, ofstream& f) {
+ostream& fprint_row(const vector<double>& v, int row, int col, ofstream& f) {
     for (int i = 0; i < row; ++i) {
         for (int j = 0; j < col; ++j) {
             f << v[i * col + j] << " ";
@@ -31,7 +31,7 @@ ostream& fprint_row(const vector<int>& v, int row, int col, ofstream& f) {
     return f;
 }
 
-ostream& fprint_col(const vector<int>& v, int row, int col, ofstream& f) {
+ostream& fprint_col(const vector<double>& v, int row, int col, ofstream& f) {
     for (int i = 0; i < row; ++i) {
         for (int j = 0; j < col; ++j) {
             f << v[i+j*col] << " ";
@@ -41,7 +41,7 @@ ostream& fprint_col(const vector<int>& v, int row, int col, ofstream& f) {
     return f;
 }
 
-double summa(const vector<int>& v) {
+double summa(const vector<double>& v) {
     double sum = 0;
     for (int i = 0; i < v.size(); ++i) {
          sum += v[i];
@@ -49,19 +49,19 @@ double summa(const vector<int>& v) {
     return sum;
 }
 
-bool comp1(int a, int b) {
+bool comp1(double a, double b) {
     return b > a;
 }
 
-bool comp2(int a, int b) {
+bool comp2(double a, double b) {
     return a > b;
 }
 
 int main() {
 
-    std::ifstream inp("input.txt");
-    std::ofstream outp("out_row.txt");
-    std::ofstream otp("out_col.txt ");
+    fstream inp("input.txt");
+    ofstream outp("out_row.txt");
+    ofstream otp("out_col.txt ");
 
     double mean = 0;
 
@@ -72,23 +72,19 @@ int main() {
     }
     else {
 
-        inp >> rows;
-        inp >> cols;
+        inp >> rows >> cols;
 
         cout << rows << " " << cols << endl << endl;
 
-        vector<int> a;
+        int vec_size = rows * cols;
 
-        char ch;
-        int trash;
+        vector<double> a(vec_size);
 
-        for (int i = 0; !inp.eof(); i++) {
-            inp >> ch;
-            trash = (int)ch-48;
-            if(trash != -4) a.push_back(trash);
+        for (size_t i = 0; i < vec_size-1; i++) {
+            inp >> a[i];
+            inp.ignore(1, ',');
         }
-
-        a.pop_back(); // i don't know, eto kostil'
+        inp >> a[vec_size - 1];
 
         print(a);
         cout << endl; 
@@ -98,27 +94,19 @@ int main() {
 
 //---------------------------------------------------------------------------
 
-        auto max_pos = max_element(a.begin(), a.end());
-        int max = std::distance(a.begin(), max_pos);
+        auto max = max_element(a.begin(), a.end());
 
-        std::cout << "max= " << a.at(max) << '\n';
+        auto min = min_element(a.begin(), a.end());
 
-        auto min_pos = min_element(a.begin(), a.end());
-        int min = std::distance(a.begin(), min_pos);
+        mean = summa(a) / (vec_size);
 
-        std::cout << "min= " << a.at(min) << '\n';
-
-        mean = summa(a) / (rows * cols);
-
-        std::cout << "mean= " << mean << '\n';
-    
 //---------------------------------------------------------------------------
 
-        vector <int> b;
+        vector <double> b;
         b.assign(a.begin(), a.end());
 
-        outp << "max= " << a.at(max) << '\n';
-        outp << "min= " << a.at(min) << '\n';
+        outp << "max= " << *max << '\n';
+        outp << "min= " << *min << '\n';
         outp << "mean= " << mean << '\n';
         
         int damn = 0;
@@ -133,26 +121,27 @@ int main() {
 
 //---------------------------------------------------------------------------
 
-        vector <int> c;
+        vector <double> c;
 
-        otp << "max= " << a.at(max) << '\n';
-        otp << "min= " << a.at(min) << '\n';
+        otp << "max= " << *max << '\n';
+        otp << "min= " << *min << '\n';
         otp << "mean= " << mean << '\n';
 
-        vector <int> yeet;
+        vector <double> yeet;
+        int trash = 0;
 
         for (int i = 0; i < rows; i++) {
             for (int k = 0; k < cols; k++) {
                 trash = a.at(i+k*cols);
                 yeet.push_back(trash);
             }
-            print(yeet);
+            //print(yeet);
             sort(yeet.begin(), yeet.end(), comp2);
             c.insert(c.end(), yeet.begin(), yeet.end());
             yeet.clear();
         }
 
-        print(c);
+        //print(c);
         fprint_col(c, rows, cols, otp);
         otp.close();
 
