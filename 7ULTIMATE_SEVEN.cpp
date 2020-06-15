@@ -34,7 +34,7 @@ ostream& fprint_row(const vector<double>& v, int row, int col, ofstream& f) {
 ostream& fprint_col(const vector<double>& v, int row, int col, ofstream& f) {
     for (int i = 0; i < row; ++i) {
         for (int j = 0; j < col; ++j) {
-            f << v[i + j * col] << " ";
+            f << v[i + j * row] << " ";
         }
         f << endl;
     }
@@ -87,8 +87,8 @@ int main() {
         inp >> a[vec_size - 1];
 
         print(a);
-        cout << endl;
-        printMatrix(a, rows, cols);
+        //cout << endl;
+        //printMatrix(a, rows, cols);
         cout << endl;
         inp.close();
 
@@ -108,8 +108,8 @@ int main() {
         outp << "min= " << *min << '\n';
         outp << "mean= " << mean << '\n';
 
-        for (int i = 0; i <= b.size()-rows; i += rows) {
-            sort(begin(b) + i, begin(b) + rows + i, comp1);
+        for (int i = 0; i <= b.size()-rows; i += cols) {
+            sort(begin(b) + i, begin(b) + cols + i, comp1);
         }
 
         fprint_row(b, rows, cols, outp);
@@ -118,24 +118,26 @@ int main() {
         //---------------------------------------------------------------------------
 
         vector <double> c;
+        c.reserve(vec_size);
 
         otp << "max= " << *max << '\n';
         otp << "min= " << *min << '\n';
         otp << "mean= " << mean << '\n';
 
         vector <double> yeet;
-        int trash = 0;
+        yeet.reserve(rows);
+        int trash = 0, bruh = 0;
 
-        for (int i = 0; i < rows; i++) {
-            for (int k = 0; k < cols; k++) {
-                trash = a.at(i + k * cols);
+        for (int i = 0; i < cols; i++) {
+            for (int k = 0; k < rows; k++) {
+                bruh = i + k * cols;
+                trash = a.at(bruh);
                 yeet.push_back(trash);
             }
             sort(yeet.begin(), yeet.end(), comp2);
-            c.insert(c.end(), yeet.begin(), yeet.end());
+            c.insert(c.begin()+i*rows, yeet.begin(), yeet.end());
             yeet.clear();
         }
-
         fprint_col(c, rows, cols, otp);
         otp.close();
 
